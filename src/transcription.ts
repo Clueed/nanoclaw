@@ -17,9 +17,9 @@ const DEFAULT_CONFIG: TranscriptionConfig = {
   baseURL: 'https://api.groq.com/openai/v1',
 };
 
-async function transcribeWithGroq(
+export async function transcribeWithGroq(
   audioBuffer: Buffer,
-  config: TranscriptionConfig,
+  config: TranscriptionConfig = DEFAULT_CONFIG,
 ): Promise<string | null> {
   const env = readEnvFile(['GROQ_API_KEY']);
   const apiKey = env.GROQ_API_KEY;
@@ -96,6 +96,35 @@ export async function transcribeAudioMessage(
     console.error('Transcription error:', err);
     return config.fallbackMessage;
   }
+}
+
+/**
+ * Channel-agnostic transcription for generic audio buffers.
+ * Works with any channel (WhatsApp, Telegram, etc.)
+ */
+export async function transcribeAudioBuffer(
+  audioBuffer: Buffer,
+): Promise<string | null> {
+  const config = DEFAULT_CONFIG;
+
+  if (!config.enabled) {
+    return config.fallbackMessage;
+  }
+
+  if (!audioBuffer || audioBuffer.length === 0) {
+    console.error('Empty audio buffer provided');
+    return config.fallbackMessage;
+  }
+
+  console.log(`Transcribing audio buffer: ${audioBuffer.length} bytes`);
+
+  const transcript = await transcribeWithGroq(audioBuffer, config);
+
+  if (!transcript) {
+    return config.fallbackMessage;
+  }
+
+  return transcript.trim();
 }
 
 export function isVoiceMessage(msg: WAMessage): boolean {
