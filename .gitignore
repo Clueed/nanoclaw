@@ -25,6 +25,9 @@ groups/global/*
 # OS
 .DS_Store
 
+# Runtime
+*.pid
+
 # IDE
 .idea/
 .vscode/
