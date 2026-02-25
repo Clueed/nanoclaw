@@ -432,7 +432,8 @@ async function runQuery(
         'TeamCreate', 'TeamDelete', 'SendMessage',
         'TodoWrite', 'ToolSearch', 'Skill',
         'NotebookEdit',
-        'mcp__nanoclaw__*'
+        'mcp__nanoclaw__*',
+        ...(containerInput.groupFolder === 'todo-telegram' ? ['mcp__todoist__*'] : []),
       ],
       env: sdkEnv,
       permissionMode: 'bypassPermissions',
@@ -448,6 +449,22 @@ async function runQuery(
             NANOCLAW_IS_MAIN: containerInput.isMain ? '1' : '0',
           },
         },
+        // Add Todoist MCP for todo-telegram group
+        ...(containerInput.groupFolder === 'todo-telegram' && sdkEnv.TODOIST_API_KEY ? {
+          todoist: {
+            command: 'npx',
+            args: [
+              '-y',
+              'mcp-remote',
+              'https://ai.todoist.net/mcp',
+              '--header',
+              'Authorization: Bearer ${TODOIST_API_KEY}',
+            ],
+            env: {
+              TODOIST_API_KEY: sdkEnv.TODOIST_API_KEY,
+            },
+          },
+        } : {}),
       },
       hooks: {
         PreCompact: [{ hooks: [createPreCompactHook(containerInput.assistantName)] }],
