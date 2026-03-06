@@ -1,0 +1,23 @@
+
+> nanoclaw@1.1.2 dev
+> tsx src/index.ts
+
+
+  Telegram bot: @mava7273bot
+  Send /chatid to the bot to get a chat's registration ID
+
+[18:42:40.133] [32mINFO[39m (168124): [36mDatabase initialized[39m
+[18:42:40.138] [32mINFO[39m (168124): [36mState loaded[39m
+    [35mgroupCount[39m: 2
+[18:42:40.244] [32mINFO[39m (168124): [36mTelegram bot connected[39m
+    [35musername[39m: "mava7273bot"
+    [35mid[39m: 8678563377
+[18:42:40.246] [32mINFO[39m (168124): [36mScheduler loop started[39m
+[18:42:40.247] [32mINFO[39m (168124): [36mIPC watcher started (per-group namespaces)[39m
+[18:42:40.248] [32mINFO[39m (168124): [36mNanoClaw running (trigger: @Andy)[39m
+[18:43:19.491] [32mINFO[39m (168124): [36mShutdown signal received[39m
+    [35msignal[39m: "SIGTERM"
+[18:43:19.491] [32mINFO[39m (168124): [36mGroupQueue shutting down (containers detached, not killed)[39m
+    [35mactiveCount[39m: 0
+    [35mdetachedContainers[39m: []
+[18:43:19.494] [32mINFO[39m (168124): [36mTelegram bot stopped[39m
