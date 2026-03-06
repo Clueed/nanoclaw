@@ -311,3 +311,13 @@ export class TelegramChannel implements Channel {
     }
   }
 }
+
+import { TELEGRAM_BOT_TOKEN } from '../config.js';
+import { registerChannel, type ChannelFactory } from './registry.js';
+
+const factory: ChannelFactory = (opts) => {
+  if (!TELEGRAM_BOT_TOKEN) return null;
+  return new TelegramChannel(TELEGRAM_BOT_TOKEN, opts);
+};
+
+registerChannel('telegram', factory);
