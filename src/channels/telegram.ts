@@ -261,7 +261,10 @@ export class TelegramChannel implements Channel {
       const url = `https://api.telegram.org/file/bot${this.botToken}/${file.file_path}`;
       const res = await fetch(url);
       if (!res.ok) {
-        logger.error({ status: res.status }, 'Failed to download Telegram voice file');
+        logger.error(
+          { status: res.status },
+          'Failed to download Telegram voice file',
+        );
         return '[Voice message]';
       }
       const arrayBuf = await res.arrayBuffer();

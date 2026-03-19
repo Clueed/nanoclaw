@@ -607,9 +607,9 @@ describe('TelegramChannel', () => {
       const channel = new TelegramChannel('test-token', opts);
       await channel.connect();
 
-      const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-        new Response(Buffer.from('fake-audio')),
-      );
+      const fetchSpy = vi
+        .spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response(Buffer.from('fake-audio')));
 
       const ctx = createMediaCtx({});
       await triggerMediaMessage('message:voice', ctx);
@@ -630,9 +630,9 @@ describe('TelegramChannel', () => {
       const channel = new TelegramChannel('test-token', opts);
       await channel.connect();
 
-      const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-        new Response(Buffer.from('fake-audio')),
-      );
+      const fetchSpy = vi
+        .spyOn(globalThis, 'fetch')
+        .mockResolvedValue(new Response(Buffer.from('fake-audio')));
 
       const ctx = createMediaCtx({});
       await triggerMediaMessage('message:audio', ctx);
@@ -649,9 +649,9 @@ describe('TelegramChannel', () => {
       const channel = new TelegramChannel('test-token', opts);
       await channel.connect();
 
-      const fetchSpy = vi.spyOn(globalThis, 'fetch').mockRejectedValue(
-        new Error('network error'),
-      );
+      const fetchSpy = vi
+        .spyOn(globalThis, 'fetch')
+        .mockRejectedValue(new Error('network error'));
 
       const ctx = createMediaCtx({});
       await triggerMediaMessage('message:voice', ctx);

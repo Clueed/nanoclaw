@@ -7,19 +7,27 @@ const FALLBACK_MESSAGE = '[Voice Message - transcription unavailable]';
  * Transcribe a voice audio buffer using the Groq Whisper API.
  * Falls back to OpenAI if GROQ_API_KEY is not set.
  */
-export async function transcribeVoiceBuffer(
-  buffer: Buffer,
-): Promise<string> {
+export async function transcribeVoiceBuffer(buffer: Buffer): Promise<string> {
   const env = readEnvFile(['GROQ_API_KEY', 'OPENAI_API_KEY']);
 
   const provider = env.GROQ_API_KEY
-    ? { key: env.GROQ_API_KEY, url: 'https://api.groq.com/openai/v1/audio/transcriptions', model: 'whisper-large-v3-turbo' }
+    ? {
+        key: env.GROQ_API_KEY,
+        url: 'https://api.groq.com/openai/v1/audio/transcriptions',
+        model: 'whisper-large-v3-turbo',
+      }
     : env.OPENAI_API_KEY
-      ? { key: env.OPENAI_API_KEY, url: 'https://api.openai.com/v1/audio/transcriptions', model: 'whisper-1' }
+      ? {
+          key: env.OPENAI_API_KEY,
+          url: 'https://api.openai.com/v1/audio/transcriptions',
+          model: 'whisper-1',
+        }
       : null;
 
   if (!provider) {
-    logger.warn('No transcription API key set (GROQ_API_KEY or OPENAI_API_KEY)');
+    logger.warn(
+      'No transcription API key set (GROQ_API_KEY or OPENAI_API_KEY)',
+    );
     return FALLBACK_MESSAGE;
   }
 
