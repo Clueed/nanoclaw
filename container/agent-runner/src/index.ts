@@ -402,7 +402,7 @@ async function runQuery(
       allowedTools: [
         'Bash',
         'Read', 'Write', 'Edit', 'Glob', 'Grep',
-        'WebSearch', 'WebFetch',
+        ...(containerInput.groupFolder === 'telegram_crm' ? [] : ['WebSearch', 'WebFetch']),
         'Task', 'TaskOutput', 'TaskStop',
         'TeamCreate', 'TeamDelete', 'SendMessage',
         'TodoWrite', 'ToolSearch', 'Skill',
